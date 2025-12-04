@@ -1,0 +1,44 @@
+{
+  "name": "oakbun",
+  "version": "0.0.9",
+  "author": "René Schober",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "tsdown": "^0.17.0-beta.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./core": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./schema": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "oakbun": "./dist/cli/index.mjs"
+  },
+  "description": "Just a Package",
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "prepublish": "bun run build"
+  },
+  "type": "module",
+  "types": "./dist/index.d.mts"
+}
