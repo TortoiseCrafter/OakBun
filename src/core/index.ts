@@ -1,1 +1,2 @@
-export const helloCore = () => 'Core'
+
+export * from './factory'

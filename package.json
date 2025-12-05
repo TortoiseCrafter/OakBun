@@ -40,5 +40,15 @@
     "prepublish": "bun run build"
   },
   "type": "module",
-  "types": "./dist/index.d.mts"
+  "types": "./dist/index.d.mts",
+  "dependencies": {
+    "better-auth": "^1.4.5",
+    "consola": "^3.4.2",
+    "croner": "^9.1.0",
+    "drizzle-orm": "^0.44.7",
+    "hono": "^4.10.7",
+    "ora": "^9.0.0",
+    "postgres": "^3.4.7",
+    "zod": "^4.1.13"
+  }
 }
