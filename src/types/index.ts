@@ -1,23 +1,8 @@
-import type { PgTable } from "drizzle-orm/pg-core";
-import type { Hono } from "hono";
-
-export type PluginConfig = {
-    name: string;
-    slug?: string;
-    schema?: Record<string, PgTable>;
-    services?: Record<string, any>;
-    providers?: Record<string, any>;
-
-    setup?: (context: {
-        app: Hono;
-        services: ServiceMap
-        providers: ProviderMap
-    }) => Promise<void> | void
-}
-
 export type ServiceMap = {}
 export type ProviderMap = {}
 export type PluginMap = {}
+export type ControllerMap = {}
+export type ModelRegistry = {}
 
 export type GlobalEvent = 'stored' | 'updated' | 'destroyed';
 export type GlobalEventHandler = (

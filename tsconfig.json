@@ -25,7 +25,8 @@
 		"noUnusedParameters": false,
 		"noPropertyAccessFromIndexSignature": false,
 
-		"outDir": "dist"
+		"outDir": "dist",
+		"types": ["bun-types"]
 	},
 	"include": ["src"],
 	"exclude": ["node_modules"]

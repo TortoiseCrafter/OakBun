@@ -1,11 +1,13 @@
-import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../database";
 
-const auth = betterAuth({
+export const baseAuthOptions = {
     database: drizzleAdapter(db, {
         provider: 'pg'
-    })
-})
+    }),
+    emailAndPassword: {
+        enabled: true
+    }
+};
 
-export { auth }
+export type OakAuthOptions = typeof baseAuthOptions;

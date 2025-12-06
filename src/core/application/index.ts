@@ -1,12 +1,10 @@
 import ora from "ora";
-import type { PluginConfig } from "../../types";
 import { Registry } from "../registry";
 import { Glob } from "bun";
 import path from 'node:path'
 import { getTableConfig } from "drizzle-orm/pg-core";
 import { db } from "../../config/database";
 import consola from "consola";
-import { factory } from "../factory";
 import { httpLogger } from "../middleware/logger";
 import { contextMiddleware } from "../middleware/context";
 import { createScope } from "../logger";
@@ -14,6 +12,11 @@ import { HTTPException } from "hono/http-exception";
 import { Response } from "../response";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { showRoutes } from "hono/dev";
+import { systemRoutes } from "../system/routes";
+import type { PluginConfig } from "../factory/plugin";
+import { factory } from "../factory/app";
+import { betterAuth } from "better-auth";
+import { baseAuthOptions } from "../../config/auth";
 
 const appLogger = createScope('APP')
 
@@ -21,7 +24,8 @@ async function defineApplication(config?: () => {
     plugins?: PluginConfig[],
     log?: {
         showRoutes?: boolean
-    }
+    },
+    auth?: any
 }) {
     // 1. Config laden
     const _config = config ? config() : {}
@@ -34,13 +38,19 @@ async function defineApplication(config?: () => {
         plugins: _config.plugins
     })
 
+    if (_config?.auth) {
+        Registry.Auth = _config.auth
+    } else {
+        Registry.Auth = betterAuth(baseAuthOptions)
+    }
+
     spinner.succeed('Core System & Plugins geladen!')
 
     const app = factory.createApp()
     app.use(httpLogger)
     app.use('*', contextMiddleware)
 
-    const _controllerGlob = new Glob('/src/api/**/controller/**/*.{ts,js}')
+    const _controllerGlob = new Glob('src/api/**/controller/**/*.{ts,js}')
     const _routerGlob = new Glob('src/api/**/route/**/*.{ts,js}')
 
     spinner.start('Lade HTTP Layer')
@@ -59,7 +69,7 @@ async function defineApplication(config?: () => {
     }
 
     // 4. Routen Laden
-    for await (const file of _controllerGlob.scan()) {
+    for await (const file of _routerGlob.scan()) {
         const _absolutePath = path.join(process.cwd(), file)
         const _imported = await import(_absolutePath)
         const _items = Object.values(_imported)
@@ -87,6 +97,8 @@ async function defineApplication(config?: () => {
                         {},
                         { get: (_, p) => Registry.Services.get(p as string) },
                     ) as any,
+                    registry: Registry,
+                    db
                 })
             }
         }
@@ -99,6 +111,8 @@ async function defineApplication(config?: () => {
 
     // 7. System Routen registrieren
     // TODO: System Routen registrieren
+    // @ts-ignore
+    app.route('/', systemRoutes.build({ factory }))
 
     // 8. Socket
     // TODO: Socket

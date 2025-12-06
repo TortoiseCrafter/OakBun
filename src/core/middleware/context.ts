@@ -1,8 +1,15 @@
 import { createMiddleware } from "hono/factory";
-import { auth } from "../../config/auth";
 import { runInContext } from "../store";
+import { Registry } from "../registry";
 
 const contextMiddleware = createMiddleware(async (c, next) => {
+    const auth = Registry.Auth;
+
+    if (!auth) {
+        await next();
+        return;
+    }
+
     const session = await auth.api.getSession({
         headers: c.req.raw.headers,
     })

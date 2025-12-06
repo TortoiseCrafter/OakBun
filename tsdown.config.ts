@@ -5,11 +5,11 @@ export default defineConfig({
     entry: {
         "index": "src/index.ts",
         "cli/index": "src/cli/index.ts",
-        "core/index": "src/core/index.ts",
         "schema/index": "src/schema/index.ts"
     },
     dts: true,
     clean: true,
     target: 'esnext',
-    outDir: './dist'
+    outDir: './dist',
+    external: ['bun', 'drizzle-orm', 'hono', 'drizzle-kit']
 })

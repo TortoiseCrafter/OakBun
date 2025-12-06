@@ -1,14 +1,12 @@
 #!/usr/bin/env bun
+import { bootstrapApp } from "../core/application";
+import { BootConsole } from "../core/cli";
+import { runCommand } from "../core/factory/command";
 
 async function main() {
-    console.log("🚀 Meine super CLI startet...");
-
-    // Hier kommt deine Logik hin (z.B. Argumente parsen)
-    const args = Bun.argv.slice(2);
-    console.log(`Argumente empfangen: ${args.join(', ')}`);
+    await BootConsole();
+    await bootstrapApp();
+    await runCommand();
 }
 
-main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-});
+main();

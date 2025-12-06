@@ -26,7 +26,8 @@ const Registry = {
         on: (handler: GlobalEventHandler) => {
             listeners.push(handler)
         }
-    }
+    },
+    Auth: null as any,
 }
 
 export { Registry }

@@ -1,8 +1,8 @@
-import { text } from "drizzle-orm/pg-core";
+import { text, uuid } from "drizzle-orm/pg-core";
 import { defineTable } from "../../core/factory/table";
 
 const coreSessionTable = defineTable('session').columns({
-    id: text('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     ipAddress: text('ip_address'),
     token: text('text').notNull().unique(),
     userAgent: text('user_agent'),
