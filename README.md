@@ -118,7 +118,7 @@ bun run dev
 
 The source code is available on GitHub. Bug reports and pull requests are welcome\!
 
-👉 **[GitHub Repository: https://github.com/TortoiseCrafter/OakBun](https://www.google.com/search?q=https://github.com/TortoiseCrafter/OakBun)**
+👉 **[GitHub Repository: https://github.com/TortoiseCrafter/OakBun](https://github.com/TortoiseCrafter/OakBun)**
 
 ## License
 
