@@ -44,6 +44,7 @@
   "type": "module",
   "types": "./dist/index.d.mts",
   "dependencies": {
+    "@hono/zod-validator": "^0.7.5",
     "better-auth": "^1.4.5",
     "consola": "^3.4.2",
     "croner": "^9.1.0",

@@ -4,6 +4,13 @@ import type { BaseHandlers, RouteHandler } from "../controller";
 import { Registry } from "../../registry";
 import type { Factory } from "hono/factory";
 import { str } from "../../utils/str";
+import { ZodObject } from 'zod'
+import { zValidator } from "@hono/zod-validator";
+
+type ValidationConfig = {
+    store?: ZodObject
+    update?: ZodObject
+}
 
 export type CustomRoutes = {
     path: string;
@@ -34,7 +41,8 @@ export type RouteConfig = {
     collection: string;
     basePath?: string;
     middleware: ScopedMiddleware[];
-    customRoutes: CustomRoutes[]
+    customRoutes: CustomRoutes[];
+    validation?: ValidationConfig
 }
 
 export type CustomRouteFactory = (ctx: RouteContext) => CustomRoutes[]
@@ -68,6 +76,12 @@ const context: RouteContext = {
 const defineRouteBuilder = (config: RouteConfig) => {
     return {
         _isRoute: true,
+        validate: (schemas: ValidationConfig) => {
+            return defineRouteBuilder({
+                ...config,
+                validation: schemas
+            })
+        },
         basePath: (path: string) => {
             return defineRouteBuilder({
                 ...config,
@@ -97,10 +111,20 @@ const defineRouteBuilder = (config: RouteConfig) => {
 
             if (controller) {
                 _app?.get(`/${pluralCollection}`, ...crudMiddleware, controller.index)
-                _app?.post(`/${pluralCollection}`, ...crudMiddleware, controller.store)
                 _app?.get(`/${pluralCollection}/:id`, ...crudMiddleware, controller.show)
-                _app?.put(`/${pluralCollection}/:id`, ...crudMiddleware, controller.update)
                 _app?.delete(`/${pluralCollection}/:id`, ...crudMiddleware, controller.destroy)
+
+                const storeMiddleware = [...crudMiddleware]
+                if (config.validation?.store) {
+                    storeMiddleware.push(zValidator('json', config.validation.store))
+                }
+                _app?.post(`/${pluralCollection}`, ...storeMiddleware, controller.store)
+
+                const updateMiddleware = [...crudMiddleware]
+                if (config.validation?.update) {
+                    updateMiddleware.push(zValidator('json', config.validation?.update))
+                }
+                _app?.put(`/${pluralCollection}/:id`, ...updateMiddleware, controller.update)
             }
 
             return _app
@@ -140,7 +164,8 @@ const defineRoute = (collection: string) => {
         basePath: '/api',
         collection,
         customRoutes: [],
-        middleware: []
+        middleware: [],
+        validation: {}
     })
 }
 
