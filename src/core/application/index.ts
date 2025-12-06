@@ -17,6 +17,7 @@ import type { PluginConfig } from "../factory/plugin";
 import { factory } from "../factory/app";
 import { betterAuth } from "better-auth";
 import { baseAuthOptions } from "../../config/auth";
+import type { Hono } from "hono";
 
 const appLogger = createScope('APP')
 
@@ -26,7 +27,7 @@ async function defineApplication(config?: () => {
         showRoutes?: boolean
     },
     auth?: any
-}) {
+}): Promise<{ app: Hono }> {
     // 1. Config laden
     const _config = config ? config() : {}
 

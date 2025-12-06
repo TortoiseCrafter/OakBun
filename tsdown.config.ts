@@ -1,14 +1,14 @@
+// tsdown.config.ts
 import { defineConfig } from 'tsdown'
 
 export default defineConfig({
-    format: ['esm'],
+    format: ['esm', 'cjs'],
     entry: {
         "index": "src/index.ts",
         "cli/index": "src/cli/index.ts",
-        "schema/index": "src/schema/index.ts"
     },
     dts: true,
-    clean: true,
+    clean: true, // Dies löscht dist am Anfang, das ist gut
     target: 'esnext',
     outDir: './dist',
     external: ['bun', 'drizzle-orm', 'hono', 'drizzle-kit']

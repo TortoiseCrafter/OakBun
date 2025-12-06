@@ -1,8 +1,8 @@
-import { text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { text, timestamp } from "drizzle-orm/pg-core";
 import { defineTable } from "../../core/factory/table";
 
 const coreAccountTable = defineTable('account').columns({
-    id: uuid('id').primaryKey().defaultRandom(),
+    id: text('id').primaryKey(),
     idToken: text('id_token'),
     accessToken: text('access_token'),
     accessTokenExpiresAt: timestamp('access_token_expires_at'),

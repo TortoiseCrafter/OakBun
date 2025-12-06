@@ -1,6 +1,6 @@
 {
   "name": "oakbun",
-  "version": "0.0.9",
+  "version": "0.0.18",
   "author": "René Schober",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
@@ -10,16 +10,19 @@
     "tsdown": "^0.17.0-beta.5"
   },
   "peerDependencies": {
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "drizzle-orm": "^0.45.0"
   },
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./schema": {
       "types": "./dist/schema/index.d.mts",
-      "import": "./dist/schema/index.mjs"
+      "import": "./dist/schema/index.mjs",
+      "require": "./dist/schema/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -32,7 +35,9 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsdown",
+    "build": "bun run build:main && bun run build:schema",
+    "build:main": "tsdown",
+    "build:schema": "tsdown --config tsdown.schema.ts",
     "dev": "tsdown --watch",
     "prepublish": "bun run build"
   },
@@ -43,7 +48,6 @@
     "consola": "^3.4.2",
     "croner": "^9.1.0",
     "drizzle-kit": "^0.31.8",
-    "drizzle-orm": "^0.44.7",
     "hono": "^4.10.7",
     "ora": "^9.0.0",
     "pluralize": "^8.0.0",
