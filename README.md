@@ -1,7 +1,3 @@
-Here is the `README.md` translated into English, ready for your repository.
-
------
-
 # OakBun 🌳
 
 A lightweight, opinionated backend framework for **Bun**, built on top of **Hono** and **Drizzle ORM**.
