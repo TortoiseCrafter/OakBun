@@ -125,6 +125,7 @@ async function defineApplication(config?: () => {
     }
 
     app.onError((err, c) => {
+        console.log(err)
         if (err instanceof HTTPException) {
             return Response.error(c, err.message, err.status as ContentfulStatusCode)
         }
