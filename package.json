@@ -1,6 +1,6 @@
 {
   "name": "oakbun",
-  "version": "0.0.22",
+  "version": "0.0.24",
   "author": "René Schober",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

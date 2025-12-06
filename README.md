@@ -1,5 +1,9 @@
 # OakBun 🌳
 
+> 🚧 **Status: Alpha / Active Development**
+>
+> This framework is currently in an early **Alpha** stage. APIs are subject to change without notice. Please use with caution in production environments. Feedback and contributions are highly appreciated\!
+
 A lightweight, opinionated backend framework for **Bun**, built on top of **Hono** and **Drizzle ORM**.
 
 OakBun prioritizes type safety and a structured architecture. It abstracts common patterns (Services, Controllers, Routes) to boost productivity while maintaining full flexibility when you need it.
