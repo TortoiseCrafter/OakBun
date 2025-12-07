@@ -6,5 +6,3 @@ export { coreAccountTable } from './account'
 export { coreVerificationTable } from './verification'
 export { coreAuditTable } from './audit'
 export { coreWebhookEndpoints, coreWebhookLog } from './webhook'
-
-export { db } from '../config/database'
