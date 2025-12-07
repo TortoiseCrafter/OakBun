@@ -1,6 +1,8 @@
 # dependencies (bun install)
 node_modules
 
+example
+
 repomix-output.xml
 
 # output

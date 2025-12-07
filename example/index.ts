@@ -1,9 +1,10 @@
 import { defineApplication } from "../src";
-import { schedulerPlugin } from "../src/plugins";
+import { auditPlugin, schedulerPlugin } from "../src/plugins";
 
 const { app } = await defineApplication(() => ({
     plugins: [
-        schedulerPlugin
+        // schedulerPlugin
+        auditPlugin
     ]
 }))
 

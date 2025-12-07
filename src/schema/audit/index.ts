@@ -1,8 +1,8 @@
-import { jsonb, text } from "drizzle-orm/pg-core";
+import { jsonb, text, uuid } from "drizzle-orm/pg-core";
 import { defineTable } from "../../core/factory/table";
 
 const coreAuditTable = defineTable('oak_audit_log').columns({
-    id: text('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     userId: text('user_id'),
     action: text('action').notNull(),
     collection: text('collection').notNull(),
