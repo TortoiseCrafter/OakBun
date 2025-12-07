@@ -22,6 +22,7 @@ const defineScheduleBuilder = (config: ScheduleConfig) => {
 
     return {
         ...base,
+        _isSchedule: true,
         build: () => config,
         cron: (expression: string) => {
             return defineScheduleBuilder({ ...config, cronExpression: expression })

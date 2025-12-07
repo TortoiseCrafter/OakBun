@@ -28,6 +28,6 @@
 		"outDir": "dist",
 		"types": ["bun-types"]
 	},
-	"include": ["src"],
+	"include": ["src", "example", "schedules"],
 	"exclude": ["node_modules"]
 }
