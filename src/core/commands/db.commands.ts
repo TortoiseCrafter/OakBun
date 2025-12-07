@@ -16,7 +16,7 @@ const runDrizzleKit = async (command: string, args: string[]) => {
     await proc.exited;
 };
 
-const databaseMigrate = defineCommand('db:migrate', {
+defineCommand('db:migrate', {
     description: 'Wendet ausstehende Migrationen auf die Datenbank an',
     handle: async () => {
         consola.start('Starte Datenbank-Migration...');
@@ -35,7 +35,7 @@ const databaseMigrate = defineCommand('db:migrate', {
     }
 });
 
-const databaseGenerate = defineCommand('db:generate', {
+defineCommand('db:generate', {
     description: 'Generiert SQL-Migrationen aus dem Schema',
     handle: async (args) => {
         consola.info('Generiere Migrationen...');
@@ -43,7 +43,7 @@ const databaseGenerate = defineCommand('db:generate', {
     }
 });
 
-const databasePush = defineCommand('db:push', {
+defineCommand('db:push', {
     description: 'Synchronisiert Schema direkt mit der DB (Prototyping)',
     handle: async (args) => {
         consola.info('Push Schema zu DB...');
@@ -51,7 +51,7 @@ const databasePush = defineCommand('db:push', {
     }
 });
 
-const databaseStudio = defineCommand('db:studio', {
+defineCommand('db:studio', {
     description: 'Öffnet Drizzle Studio zur Datenverwaltung',
     handle: async (args) => {
         consola.info('Starte Drizzle Studio...');
@@ -59,18 +59,10 @@ const databaseStudio = defineCommand('db:studio', {
     }
 });
 
-const databaseDrop = defineCommand('db:drop', {
+defineCommand('db:drop', {
     description: 'Löscht alle Daten (Drizzle Drop)',
     handle: async (args) => {
         consola.warn('ACHTUNG: Dies löscht Migrationstabellen!');
         await runDrizzleKit("drop", args);
     }
 });
-
-export {
-    databaseMigrate,
-    databaseGenerate,
-    databasePush,
-    databaseDrop,
-    databaseStudio
-}
