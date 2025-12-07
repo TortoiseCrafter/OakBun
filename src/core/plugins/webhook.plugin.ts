@@ -2,10 +2,14 @@ import consola from "consola";
 import { definePlugin } from "../factory/plugin";
 import { coreWebhookEndpoints } from "../../schema/webhook";
 import { sql } from "drizzle-orm";
+import { webhookProvider } from "../provider/webhook.provider";
 
 const webhookPlugin = definePlugin({
     name: 'Webhooks System',
     slug: 'webhook',
+    providers: {
+        webhook: webhookProvider
+    },
     setup: ({ registry, providers, db }) => {
         consola.info('Webhook System aktiv')
 
