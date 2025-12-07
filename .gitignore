@@ -1,6 +1,8 @@
 # dependencies (bun install)
 node_modules
 
+repomix-output.xml
+
 # output
 out
 dist

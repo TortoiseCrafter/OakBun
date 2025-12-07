@@ -1,7 +1,7 @@
 import consola from "consola"
 import { coreAuditTable } from "../../schema"
-import { definePlugin } from "../factory"
 import { currentUser } from "../store"
+import { definePlugin } from "../factory/plugin"
 
 type AuditConfig = {
     exclude?: string[]

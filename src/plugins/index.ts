@@ -1,0 +1,1 @@
+export { auditPlugin } from '../core/plugins/audit.plugin'
