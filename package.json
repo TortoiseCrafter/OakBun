@@ -24,6 +24,11 @@
       "import": "./dist/schema/index.mjs",
       "require": "./dist/schema/index.cjs"
     },
+    "./plugins": {
+      "types": "./dist/plugins/index.d.mts",
+      "import": "./dist/plugins/index.mjs",
+      "require": "./dist/plugins/index.cjs"
+    },
     "./package.json": "./package.json"
   },
   "bin": {

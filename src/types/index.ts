@@ -1,5 +1,7 @@
 export type ServiceMap = {}
-export type ProviderMap = {}
+export type ProviderMap = {
+    webhook: typeof import('../core/provider/webhook.provider').webhookProvider
+}
 export type PluginMap = {}
 export type ControllerMap = {}
 export type ModelRegistry = {}
