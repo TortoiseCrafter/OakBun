@@ -9,11 +9,16 @@ export type CommandOptions = {
 }
 
 const defineCommand = (signature: string, option: CommandOptions) => {
-    if (Registry.Commands.has(signature)) {
-        consola.warn(`Warnung: Befehl ${signature} wurde überschrieben`)
-    }
 
-    Registry.Commands.set(signature, option)
+    return {
+        build: () => {
+            if (Registry.Commands.has(signature)) {
+                consola.warn(`Warnung: Befehl ${signature} wurde überschrieben`)
+            }
+
+            Registry.Commands.set(signature, option)
+        }
+    }
 }
 
 const runCommand = async () => {
